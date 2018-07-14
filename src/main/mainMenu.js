@@ -1,5 +1,7 @@
 
 import { app, Menu, dialog } from 'electron';
+import { currentContent } from './preview-server.js';
+import fs from 'fs-extra';
 
 export function mainMenu(mainWindow) {
     const menuTemplate = [ {
@@ -24,6 +26,26 @@ export function mainMenu(mainWindow) {
                 accelerator: process.platform === 'darwin' ? 'Command+S' : 'Ctrl+S',
                 click: () => {   
                     mainWindow.webContents.send('saveCurrentFile');
+                }
+            },
+            {
+                label: 'Export to HTML',
+                click: async () => {
+                    let filename = await new Promise((resolve, reject) => {
+                        dialog.showSaveDialog({
+                            title: "Export to HTML"
+                        }, filename => {
+                            console.log(`Export to HTML GOT SAVE TO ${filename}`);
+                            if (filename) {
+                                resolve(filename);
+                            } else {
+                                resolve(undefined);
+                            }
+                        });
+                    });
+                    if (filename) {
+                        await fs.writeFile(filename, currentContent(), 'utf8');
+                    }
                 }
             },
             {

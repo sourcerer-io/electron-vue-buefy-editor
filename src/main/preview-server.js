@@ -16,6 +16,10 @@ export function newContent(text) {
     return genurl('content');
 }
 
+export function currentContent() {
+    return content;
+}
+
 function genurl(pathname) {
     const url2preview = url.format({
         protocol: 'http',

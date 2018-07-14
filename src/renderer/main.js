@@ -40,7 +40,7 @@ export const messageBus = new Vue({
     openNewFile(file2open) {
       this.$emit('openNewFile', file2open); 
     },
-    saveCurrentFile() { this.$emit('saveCurrentFile'); },
+    saveCurrentFile() { this.$emit('saveCurrentFile'); }
   }
 });
 
