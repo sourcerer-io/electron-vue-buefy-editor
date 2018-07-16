@@ -1,6 +1,14 @@
 # electron-vue-buefy-editor
 
-> An electron-vue project
+A Markdown editor with live preview written using Vue.js, Buefy (Bulma), the Ace editor component, and running inside the Electron framework.  It uses
+
+* The Electron-Vue framework to support Vue.js in Electron
+* Buefy supports the excellent Bulma UI toolkit in Electron
+* `vue2-ace-editor` supports the excellent Ace editor as a Vue.js component
+
+To read a full write-up, see: 
+
+![Electron-Vue-Buefy-Editor](app-screenshot.jpg)
 
 #### Build Setup
 
@@ -13,10 +21,5 @@ npm run dev
 
 # build electron application for production
 npm run build
-
-
 ```
 
----
-
-This project was generated with [electron-vue](https://github.com/SimulatedGREG/electron-vue)@[4c6ee7b](https://github.com/SimulatedGREG/electron-vue/tree/4c6ee7bf4f9b4aa647a22ec1c1ca29c2e59c3645) using [vue-cli](https://github.com/vuejs/vue-cli). Documentation about the original structure can be found [here](https://simulatedgreg.gitbooks.io/electron-vue/content/index.html).
