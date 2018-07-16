@@ -33,10 +33,7 @@ layouts['layout1.html'] = `
     <head>
         <title><%= title %></title>
         <style>
-        h1 {
-            color: red;
-        }
-
+        H1, h2, h3, h4 { color: red; }
         pre {
             background: rgb(59, 58, 58);
             color: white;

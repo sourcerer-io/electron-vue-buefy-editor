@@ -159,18 +159,8 @@ export default {
                 })
             });
         },
-        saveContentToFile(file2save) {
-            console.log(`saveContentToFile SAVING TO ${file2save}`);
-            return new Promise((resolve, reject) => {
-                fs.writeFile(file2save, this.input, 'utf8', (err) => {
-                    if (err) {
-                        reject(new Error(`saveContentToFile FAIL ${file2save} ${err.stack}`));
-                    } else {
-                        console.log(`saveContentToFile SUCCESS ${file2save}`);
-                        resolve("saved");
-                    }
-                });
-            });
+        async saveContentToFile(file2save) {
+            return await fs.writeFile(file2save, this.input, 'utf8');
         },
         saveAsGetFileName() {
             const remote = this.$electron.remote;
@@ -193,7 +183,9 @@ export default {
                 let doit = await this.askSaveFile('UNTITLED');
                 if (doit === "confirm") {
                     let fileName = await this.saveAsGetFileName();
-                    await this.saveContentToFile(fileName);
+                    try { await this.saveContentToFile(fileName); } catch (e) {
+                        console.error(`openNewFile saveContentToFile FAIL because for ${fileName} ${e.stack}`);
+                    }
                 }
             } else if (this.isChangedFile) {
                 console.log(`openNewFile isChangedFile ${this.fileName}`);
@@ -244,7 +236,9 @@ export default {
             } else if (this.isChangedFile) {
                 fileName = this.fileName;
             } else return;
-            await this.saveContentToFile(fileName);
+            try { await this.saveContentToFile(fileName); } catch (e) {
+                console.error(`saveCurrentFile saveContentToFile FAIL for ${fileName} because ${e.stack}`);
+            }
             this.isNewFile = false;
             this.isChangedFile = false;
             this.fileName = fileName;
@@ -256,13 +250,17 @@ export default {
                 let doit = await this.askSaveFile('UNTITLED');
                 if (doit === "confirm") {
                     let fileName = await this.saveAsGetFileName();
-                    await this.saveContentToFile(fileName);
+                    try { await this.saveContentToFile(fileName); } catch (e) {
+                        console.error(`newFile2Edit saveContentToFile FAIL for ${fileName} because ${e.stack}`);
+                    }
                 }
             } else if (this.isChangedFile) {
                 console.log(`openNewFile isChangedFile ${this.fileName}`);
                 let doit = await this.askSaveFile(this.fileName);
                 if (doit === "confirm") {
-                    await this.saveContentToFile(this.fileName);
+                    try { await this.saveContentToFile(this.fileName); } catch (e) {
+                        console.error(`newFile2Edit saveContentToFile FAIL for ${fileName} because ${e.stack}`);
+                    }
                 }
             }
             this.isNewFile = true;

@@ -30,53 +30,43 @@ export const messageBus = new Vue({
     newContentToRender(newContent) {
       ipcRenderer.send('newContentToRender', newContent);
     },
-    newContentToPreview(url2preview) {
-      this.$emit('newContentToPreview', url2preview);
-    },
-    newFile2Edit() { this.$emit('newFile2Edit'); },
-    editorDoUndo() { this.$emit('editorDoUndo'); },
-    editorDoRedo() { this.$emit('editorDoRedo'); },
-    editorSelectAll() { this.$emit('editorSelectAll'); },
-    openNewFile(file2open) {
-      this.$emit('openNewFile', file2open); 
-    },
-    saveCurrentFile() { this.$emit('saveCurrentFile'); }
+    saveCurrentFile() {  }
   }
 });
 
 ipcRenderer.on('newContentToPreview', (event, url2preview) => {
   console.log(`ipcRenderer.on newContentToPreview ${util.inspect(event)} ${url2preview}`);
-  messageBus.newContentToPreview(url2preview);
+  messageBus.$emit('newContentToPreview', url2preview);
 });
 
 ipcRenderer.on('newFile2Edit', (event) => {
   console.log(`ipcRenderer.on newFile2Edit ${util.inspect(event)}`);
-  messageBus.newFile2Edit();
+  messageBus.$emit('newFile2Edit');
 });
 
 ipcRenderer.on('editorDoUndo', (event) => {
   console.log(`ipcRenderer.on editorDoUndo ${util.inspect(event)}`);
-  messageBus.editorDoUndo();
+  messageBus.$emit('editorDoUndo');
 });
 
 ipcRenderer.on('editorDoRedo', (event) => {
   console.log(`ipcRenderer.on editorDoRedo ${util.inspect(event)}`);
-  messageBus.editorDoRedo();
+  messageBus.$emit('editorDoRedo');
 });
 
 ipcRenderer.on('editorSelectAll', (event) => {
   console.log(`ipcRenderer.on editorSelectAll ${util.inspect(event)}`);
-  messageBus.editorSelectAll();
+  messageBus.$emit('editorSelectAll');
 });
 
 ipcRenderer.on('openNewFile', (event, file2open) => {
   console.log(`ipcRenderer.on openNewFile  ${util.inspect(file2open)}`);
-  messageBus.openNewFile(file2open);
+  messageBus.$emit('openNewFile', file2open);
 });
 
 ipcRenderer.on('saveCurrentFile', (event) => {
   console.log(`ipcRenderer.on saveCurrentFile ${util.inspect(event)}`);
-  messageBus.saveCurrentFile();
+  messageBus.$emit('saveCurrentFile');
 });
 
 /* eslint-disable no-new */
