@@ -34,7 +34,7 @@ function requestHandler(req, res) {
     try {
         res.writeHead(200, {
             'Content-Type': 'text/html',
-            'Content-Length': content.length
+            //'Content-Length': content.length
         });
         res.end(content);
     } catch(err) {
